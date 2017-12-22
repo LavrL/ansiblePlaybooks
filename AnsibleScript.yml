@@ -1,0 +1,24 @@
+---
+- hosts: all
+  become: true
+  tasks:
+    - name: Update apt
+      apt: update_cache=yes
+
+    - name: Install Apache
+      apt: name=apache2 state=latest
+
+    - name: Create custom file
+      file: path=/home/ubuntu/index.html state=touch owner=root group=root
+
+    - lineinfile:
+        path: /home/ubuntu/index.html
+        line: 'This is my text for Homepage'
+
+    - copy:
+        src: /home/ubuntu/index.html
+        dest: /var/www/html/index.html
+        remote_src: yes
+        owner: root
+        group: root
+        mode: u=rw,g=r,o=r
