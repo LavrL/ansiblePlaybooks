@@ -1,5 +1,3 @@
-Small Ansible playbook
-
 Scenario for playbook:
 
     * log into server
